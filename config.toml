@@ -15,7 +15,7 @@ relativeURLS = true
 [params]
    minimal = true
    excerpts = false
-   description = "Ramesh's Personal Blog"
+   description = "Ramesh's Blog"
    
 
 
