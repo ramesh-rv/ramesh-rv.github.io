@@ -22,7 +22,7 @@ relativeURLS = true
 [[menu.main]]
     identifier = "about"
     name = "About"
-    url = "/about/"
+    url = "about/"
     weight = 20
 
 [[menu.main]]
