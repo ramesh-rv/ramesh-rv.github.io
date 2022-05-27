@@ -1,14 +1,9 @@
 baseURL = "https://ramesh-rv.github.io"
 languageCode = 'en-us'
-title = "Ramesh > Blog"
+title = "RameshBlog"
 theme = "contrast-hugo-mod"
 
 relativeURLs = true
-
-
-
-
-
 
 
 
@@ -30,8 +25,7 @@ relativeURLs = true
     name = "Home"
     url = "/"
     weight = 20
-    
-   
+     
     
 [[menu.main]]
     identifier = "tag"
