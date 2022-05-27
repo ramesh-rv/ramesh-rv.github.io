@@ -1,9 +1,9 @@
-baseURL = "https://ramesh-rv.github.io/rvrameshdotme/"
+baseURL = "/rvrameshdotme/"
 languageCode = 'en-us'
 title = "Ramesh > Blog"
 theme = "contrast-hugo-mod"
 
-
+relativeURLs = true
 
 
 
@@ -22,7 +22,7 @@ theme = "contrast-hugo-mod"
 [[menu.main]]
     identifier = "about"
     name = "About"
-    url = "about/"
+    url = "/about/"
     weight = 20
 
 [[menu.main]]
