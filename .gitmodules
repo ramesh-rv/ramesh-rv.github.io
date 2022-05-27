@@ -1,0 +1,3 @@
+[submodule "themes/contrast-hugo-mod"]
+	path = themes/contrast-hugo-mod
+	url = https://github.com/ramesh-rv/contrast-hugo-mod.git
