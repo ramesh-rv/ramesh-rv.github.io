@@ -1,6 +1,6 @@
 baseURL = "https://ramesh-rv.github.io/"
 languageCode = 'en-us'
-title = "RameshBlog"
+title = "Ramesh > Blog"
 theme = "contrast-hugo-mod"
 
 relativeURLs = true
