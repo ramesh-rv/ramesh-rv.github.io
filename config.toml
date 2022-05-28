@@ -1,4 +1,4 @@
-baseURL = "https://rvramesh.me
+baseURL = "https://rvramesh.me"
 languageCode = 'en-us'
 title = "Ramesh > Blog"
 theme = "contrast-hugo-mod"
@@ -42,7 +42,7 @@ relativeURLs = true
     url = "https://www.linkedin.com/in/ramesh-rv-b2b57a8/"
 
 
-
+ 
 
 
 
