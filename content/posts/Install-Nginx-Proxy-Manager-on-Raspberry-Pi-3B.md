@@ -15,7 +15,7 @@ A reverse proxy is a server that sits in front of your apps and forward client r
 In this post, we will try to install Nginx Proxy Manager docker image running on Raspberry Pi 3B
 
 
-![image](images/2021/05/NginxProxyManager.jpg)
+![image](/images/2021/05/NginxProxyManager.jpg)
 
 
 
