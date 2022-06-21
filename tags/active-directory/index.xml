@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>active-directory on Ramesh > Blog</title><link>https://rvramesh.me/tags/active-directory/</link><description>Recent content in active-directory on Ramesh > Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 20:08:38 +0530</lastBuildDate><atom:link href="https://rvramesh.me/tags/active-directory/index.xml" rel="self" type="application/rss+xml"/><item><title>Setup Active Directory Lab</title><link>https://rvramesh.me/posts/setup-active-directory-lab/</link><pubDate>Sat, 07 May 2022 20:08:38 +0530</pubDate><guid>https://rvramesh.me/posts/setup-active-directory-lab/</guid><description>Table of Contents
+Install Vagrant
+Spin up machines using Vagrant
+Machine-A - Active Directory Domain Controller Machine-B - Windows 10 desktop joined to domain Execute the scripts
+Results
+Machine-A Machine-B Reference
+This post will share the details on configuring an Active Directory lab for threat hunting. We will use a popular tool called &amp;ldquo;Vagrant&amp;rdquo; to provision the machines through automation. This post is part-1 of the Auror Project which is hosted by Sudarshan Pisupati</description></item></channel></rss>
