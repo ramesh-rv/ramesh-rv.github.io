@@ -14,9 +14,9 @@ This post is part-3 of the Auror Project hosted by Sudarshan Pisupati.
 
 **Table of Contents**
 
-1. [What is Kerberos ?](#what-is-kerberos)
+1. [What is Kerberos ](#what-is-kerberos)
 
-2. [How does authentication through Kerberos work ?](#how-does-authentication-through-kerberos-work)
+2. [How does authentication through Kerberos work ](#how-does-authentication-through-kerberos-work)
 
 3. [Kerberos Flows](#kerberos-flows)
     1. [Logon Ticket Flow](#logon-ticket-flow-tgt-flow)
@@ -71,6 +71,13 @@ Alice | acme.corp | alice@acme.corp
 
 
 ## Kerberos Flows
+
+There are two important flows that we discuss here
+
+1. Logon Ticket flow 
+2. Service Ticket flow
+
+The below shown sequence diagram tries to provide an overview of both the flows
 
 ![kerberos-sequence-diagram](/images/2022/06/kerberos-sequence-diagram.png)
 
