@@ -33,7 +33,7 @@ This post is part-3 of the Auror Project hosted by Sudarshan Pisupati.
 
 
 
-## What is Kerberos ?
+## What is Kerberos 
 
 
 Kerberos is a network authentication protocol developed by Massachusetts Institute of Technology (MIT). The protocol was named after "**Cerberus**", the three headed dog in Greek Mythology.
@@ -43,7 +43,7 @@ Kerberos is designed for a client-server model and provide secure authentication
 
 
 
-## How does authentication through Kerberos work ?
+## How does authentication through Kerberos work 
 
 Authentication through Kerberos happens through a Key Distribution Center(KDC) which is a service running on the Active Directory(AD) Domain Controllers(DC).
 
