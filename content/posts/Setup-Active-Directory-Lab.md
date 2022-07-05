@@ -9,12 +9,12 @@ tags: [active-directory]
 **Table of Contents**
 
 1. [Install Vagrant](#install-vagrant)
-2. [Spin up machines using Vagrant](#spin-up-machines-using-vagrant)  
+2. [Configure machines using Vagrant](#configure-machines-using-vagrant)  
 	1. [Machine-A - Active Directory Domain Controller](#machine-a---active-directory-domain-controller)
 	2. [Machine-B - Windows 10 desktop joined to domain](#machine-b---windows-10-desktop-joined-to-domain)
 
-3. [Execute the scripts](#execute-the-scripts)
-4. [Results](#results)
+3. [Spin up machines](#spin-up-machines)
+4. [Validation](#validation)
 	1. [Machine-A](#machine-a)
 	2. [Machine-B](#machine-b)
 5. [Reference](#reference)
@@ -66,7 +66,7 @@ Installed the plugin 'vagrant-reload (0.0.1)'!
 ```
 -----
 
-## Spin up machines using Vagrant
+## Configure machines using Vagrant
 
 ### Machine A - Active Directory Domain Controller
 
@@ -212,7 +212,7 @@ net localgroup "Administrators" auror\alice /add
 ```
 ----
 
-## Execute the scripts
+## Spin up machines
 
 * Now we can consolidate the Vagrant files for 'Machine A' and 'Machine B' into a single file.
 * We will place the powershell scripts inside the scripts directory. The scripts directory should be in the same directory as the vagrant file. 
@@ -238,7 +238,7 @@ net localgroup "Administrators" auror\alice /add
 
 ----
 
-## Results
+## Validation
 
 * When the vagarnt scripts completes successfully,it is time for validation
 
