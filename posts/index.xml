@@ -1,8 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Ramesh > Blog</title><link>https://rvramesh.me/posts/</link><description>Recent content in Posts on Ramesh > Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 20:08:38 +0530</lastBuildDate><atom:link href="https://rvramesh.me/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Setup Active Directory Lab</title><link>https://rvramesh.me/posts/setup-active-directory-lab/</link><pubDate>Sat, 07 May 2022 20:08:38 +0530</pubDate><guid>https://rvramesh.me/posts/setup-active-directory-lab/</guid><description>Table of Contents
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Ramesh > Blog</title><link>https://rvramesh.me/posts/</link><description>Recent content in Posts on Ramesh > Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 05 Jul 2022 13:33:27 +0530</lastBuildDate><atom:link href="https://rvramesh.me/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Kerberos 101</title><link>https://rvramesh.me/posts/kerberos-101/</link><pubDate>Tue, 05 Jul 2022 13:33:27 +0530</pubDate><guid>https://rvramesh.me/posts/kerberos-101/</guid><description>Kerberos Series: Kerberos 101 This post is part-3 of the Auror Project hosted by Sudarshan Pisupati.
+Table of Contents
+What is Kerberos ?
+How does authentication through Kerberos work ?
+Kerberos Flows
+Logon Ticket Flow Service Ticket Flow Kerberos Flows in Action
+User login to Machine-B User tries to access file server Final Thoughts
+What is Kerberos ? Kerberos is a network authentication protocol developed by Massachusetts Institute of Technology (MIT).</description></item><item><title>Setup Active Directory Lab</title><link>https://rvramesh.me/posts/setup-active-directory-lab/</link><pubDate>Sat, 07 May 2022 20:08:38 +0530</pubDate><guid>https://rvramesh.me/posts/setup-active-directory-lab/</guid><description>Table of Contents
 Install Vagrant
-Spin up machines using Vagrant
-Machine-A - Active Directory Domain Controller Machine-B - Windows 10 desktop joined to domain Execute the scripts
-Results
+Configure machines using Vagrant
+Machine-A - Active Directory Domain Controller Machine-B - Windows 10 desktop joined to domain Spin up machines
+Validation
 Machine-A Machine-B Reference
 This post will share the details on configuring an Active Directory lab for threat hunting. We will use a popular tool called &amp;ldquo;Vagrant&amp;rdquo; to provision the machines through automation. This post is part-1 of the Auror Project which is hosted by Sudarshan Pisupati</description></item><item><title>Install Nginx Proxy Manager on Raspberry Pi 3B</title><link>https://rvramesh.me/posts/install-nginx-proxy-manager-on-raspberry-pi-3b/</link><pubDate>Mon, 21 Jun 2021 17:49:45 +0530</pubDate><guid>https://rvramesh.me/posts/install-nginx-proxy-manager-on-raspberry-pi-3b/</guid><description>Nginx Proxy Manager acts as a reverse proxy while exposing the services to the network. Using a reverse proxy is good move to improve security and performance.
 A reverse proxy is a server that sits in front of your apps and forward client requests to the apps. In other words, we will have to expose one server (Reverse Proxy server) using ports 80 or 443 and we will be able to expose any number of apps that we need.</description></item><item><title>Install Docker and Portainer on Raspberry Pi 3B</title><link>https://rvramesh.me/posts/install-docker-and-portainer-on-raspberry-pi-3b/</link><pubDate>Wed, 12 May 2021 16:26:25 +0530</pubDate><guid>https://rvramesh.me/posts/install-docker-and-portainer-on-raspberry-pi-3b/</guid><description>Table of Contents
