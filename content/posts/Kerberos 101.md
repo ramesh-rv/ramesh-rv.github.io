@@ -77,7 +77,7 @@ There are two important flows that we discuss here
 1. Logon Ticket flow 
 2. Service Ticket flow
 
-The below shown sequence diagram tries to provide an overview of both the flows
+The sequence diagram tries to provide an overview of both the flows
 
 ![kerberos-sequence-diagram](/images/2022/06/kerberos-sequence-diagram.png)
 
