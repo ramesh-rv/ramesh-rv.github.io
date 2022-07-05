@@ -5,7 +5,7 @@ How does authentication through Kerberos work ?
 Kerberos Flows
 Logon Ticket Flow Service Ticket Flow Kerberos Flows in Action
 User login to Machine-B User tries to access file server Final Thoughts
-What is Kerberos ? Kerberos is a network authentication protocol developed by Massachusetts Institute of Technology (MIT).</description></item><item><title>Setup Active Directory Lab</title><link>https://rvramesh.me/posts/setup-active-directory-lab/</link><pubDate>Sat, 07 May 2022 20:08:38 +0530</pubDate><guid>https://rvramesh.me/posts/setup-active-directory-lab/</guid><description>Table of Contents
+What is Kerberos Kerberos is a network authentication protocol developed by Massachusetts Institute of Technology (MIT). The protocol was named after &amp;ldquo;Cerberus&amp;rdquo;, the three headed dog in Greek Mythology.</description></item><item><title>Setup Active Directory Lab</title><link>https://rvramesh.me/posts/setup-active-directory-lab/</link><pubDate>Sat, 07 May 2022 20:08:38 +0530</pubDate><guid>https://rvramesh.me/posts/setup-active-directory-lab/</guid><description>Table of Contents
 Install Vagrant
 Configure machines using Vagrant
 Machine-A - Active Directory Domain Controller Machine-B - Windows 10 desktop joined to domain Spin up machines
