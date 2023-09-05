@@ -43,43 +43,43 @@ Tags: okta, api</header><p><strong>Table of Contents</strong></p><ol><li><a href
             }
         }
     },
-</code></pre><hr><h2 id=pre-requisite>Pre-requisite</h2><ol><li><p>API token created on your Okta tenant. You can follow the <a href=https://developer.okta.com/docs/guides/create-an-api-token/main/>Okta documentation to create an API token</a>. For this blog post I created an API token on my developer tenant.</p></li><li><p>Install httpie by following the instructions in the <a href=https://httpie.io/docs/cli/installation>official documentation</a>. Httpie can be installed on Windows,Linux and MacOS.</p></li><li><p>Install jq by following the instructions in the <a href=https://jqlang.github.io/jq/download/>documentation</a>. Jq can be installed on Windows,Linux and MacOS.</p></li><li><p>To verify if both <strong>httpie</strong> and <strong>jq</strong> are installed , issue the below command. A response with &ldquo;hello world&rdquo; in JSON format should be received as shown</p><p><code>http https://httpbin.org/get?message="hello world" | jq .</code></p></li></ol><pre tabindex=0><code>{
-  &#34;args&#34;: {
+</code></pre><hr><h2 id=pre-requisite>Pre-requisite</h2><ol><li><p>API token created on your Okta tenant. You can follow the <a href=https://developer.okta.com/docs/guides/create-an-api-token/main/>Okta documentation to create an API token</a>. For this blog post I created an API token on my developer tenant.</p></li><li><p>Install httpie by following the instructions in the <a href=https://httpie.io/docs/cli/installation>official documentation</a>. Httpie can be installed on Windows,Linux and MacOS.</p></li><li><p>Install jq by following the instructions in the <a href=https://jqlang.github.io/jq/download/>documentation</a>. Jq can be installed on Windows,Linux and MacOS.</p></li><li><p>To verify if both <strong>httpie</strong> and <strong>jq</strong> are installed , issue the below command. A response with &ldquo;hello world&rdquo; in JSON format should be received as shown</p><p><code>http https://httpbin.org/get?message="hello world" | jq .</code></p><pre tabindex=0><code>{
+&#34;args&#34;: {
     &#34;message&#34;: &#34;hello world&#34;
-  },
-  &#34;headers&#34;: {
+},
+&#34;headers&#34;: {
     &#34;Accept&#34;: &#34;*/*&#34;,
     &#34;Accept-Encoding&#34;: &#34;gzip, deflate&#34;,
     &#34;Host&#34;: &#34;httpbin.org&#34;,
     &#34;User-Agent&#34;: &#34;HTTPie/3.2.1&#34;,
     &#34;X-Amzn-Trace-Id&#34;: &#34;Root=1-64eb6355-19c0a1b82a9fda080833fc7f&#34;
-  },
-  &#34;origin&#34;: &#34;123.123.123.98&#34;,
-  &#34;url&#34;: &#34;https://httpbin.org/get?message=hello world&#34;
+},
+&#34;origin&#34;: &#34;123.123.123.98&#34;,
+&#34;url&#34;: &#34;https://httpbin.org/get?message=hello world&#34;
 }
-</code></pre><hr><h2 id=access-okta-apis-through-httpie>Access Okta APIs through HTTPie</h2><ol><li><p>The Okta API uses the custom HTTP authentication scheme <code>SSWS</code> for API authentication. An API request must have valid API token prefixed with <code>SSWS</code> in the HTTP <code>Authorization</code> header.</p><p><strong>Authorization: SSWS {API token here}</strong></p><p><code>Authorization: SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua</code></p></li><li><p>To get the list of users, we can access <code>/users</code> API endpoint through httpie as shown here.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:'SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua'</code></p></li><li><p>Headers can also be read from a file using the <code>:@</code> operator while using httpie. We can get the list of users by</p><ul><li>Create a file with name <code>Headers.txt</code> which contains the value for <code>Authorization</code> header</li></ul><pre tabindex=0><code>cat headers.txt 
+</code></pre></li></ol><hr><h2 id=access-okta-apis-through-httpie>Access Okta APIs through HTTPie</h2><ol><li><p>The Okta API uses the custom HTTP authentication scheme <code>SSWS</code> for API authentication. An API request must have valid API token prefixed with <code>SSWS</code> in the HTTP <code>Authorization</code> header.</p><p><strong>Authorization: SSWS {API token here}</strong></p><p><code>Authorization: SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua</code></p></li><li><p>To get the list of users, we can access <code>/users</code> API endpoint through httpie as shown here.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:'SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua'</code></p></li><li><p>Headers can also be read from a file using the <code>:@</code> operator while using httpie. We can get the list of users by</p><ul><li><p>Create a file with name <code>Headers.txt</code> which contains the value for <code>Authorization</code> header</p><pre tabindex=0><code>cat headers.txt 
 SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua
-</code></pre><ul><li>Provide reference to the file <code>headers.txt</code> in the API request through <code>http</code> command.</li></ul><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt</code></p></li></ol><hr><h2 id=using-jq-to-process-json-response>Using jq to process JSON response</h2><ol><li><p>The best practice using <code>jq</code> with <code>http</code> is to pass the output of the API response to jq.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq .</code></p></li><li><p>If the response contains an array, the values can be iterated. The jq documentation on <a href=https://devdocs.io/jq/>devdocs.io</a> provides good examples.</p></li><li><p>When I required the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em> , I first verified the JSON response of the user object.</p></li><li><p>Below is a visual representation of the response from Okta for a user shown earlier in the form of JSON.</p><p><img src=../../images/2022/10/user-object-json-response.png alt=user-object-json-diagram></p></li><li><p>So from the JSON response, jq will have to filter <code>activated</code>, <code>firstName</code> and <code>lastName</code> under <code>profile</code></p></li><li><p>The command will look like</p><p><code>http -b GET https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq '.[] | { "Date of Activation": .activated , "First Name": .profile.firstName , "Last Name": .profile.lastName }'</code></p></li><li><p>The output of the jq command will be just three values for all the users. Please note that the number of records in the response depends on the limit set by Okta or specified in the command. My developer tenant has only 4 users, the output contains values for all the 4 users.</p></li></ol><pre tabindex=0><code>{
-  &#34;Date of Activation&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
-  &#34;First Name&#34;: &#34;Test&#34;,
-  &#34;Last Name&#34;: &#34;User002&#34;
+</code></pre></li><li><p>Provide reference to the file <code>headers.txt</code> in the API request through <code>http</code> command.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt</code></p></li></ul></li></ol><hr><h2 id=using-jq-to-process-json-response>Using jq to process JSON response</h2><ol><li><p>The best practice using <code>jq</code> with <code>http</code> is to pass the output of the API response to jq.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq .</code></p></li><li><p>If the response contains an array, the values can be iterated. The jq documentation on <a href=https://devdocs.io/jq/>devdocs.io</a> provides good examples.</p></li><li><p>When I required the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em> , I first verified the JSON response of the user object.</p></li><li><p>Below is a visual representation of the response from Okta for a user shown earlier in the form of JSON.</p><p><img src=../../images/2022/10/user-object-json-response.png alt=user-object-json-diagram></p></li><li><p>So from the JSON response, jq will have to filter <code>activated</code>, <code>firstName</code> and <code>lastName</code> under <code>profile</code></p></li><li><p>The command will look like</p><p><code>http -b GET https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq '.[] | { "Date of Activation": .activated , "First Name": .profile.firstName , "Last Name": .profile.lastName }'</code></p></li><li><p>The output of the jq command will be just three values for all the users. Please note that the number of records in the response depends on the limit set by Okta or specified in the command. My developer tenant has only 4 users, the output contains values for all the 4 users.</p><pre tabindex=0><code>{
+&#34;Date of Activation&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+&#34;First Name&#34;: &#34;Test&#34;,
+&#34;Last Name&#34;: &#34;User002&#34;
 }
 {
-  &#34;Date of Activation&#34;: &#34;2022-06-23T09:47:17.000Z&#34;,
-  &#34;First Name&#34;: &#34;Ramesh&#34;,
-  &#34;Last Name&#34;: &#34;RV&#34;
+&#34;Date of Activation&#34;: &#34;2022-06-23T09:47:17.000Z&#34;,
+&#34;First Name&#34;: &#34;Ramesh&#34;,
+&#34;Last Name&#34;: &#34;RV&#34;
 }
 {
-  &#34;Date of Activation&#34;: &#34;2022-06-23T09:56:30.000Z&#34;,
-  &#34;First Name&#34;: &#34;Okta Super&#34;,
-  &#34;Last Name&#34;: &#34;Admin&#34;
+&#34;Date of Activation&#34;: &#34;2022-06-23T09:56:30.000Z&#34;,
+&#34;First Name&#34;: &#34;Okta Super&#34;,
+&#34;Last Name&#34;: &#34;Admin&#34;
 }
 {
-  &#34;Date of Activation&#34;: &#34;2020-05-15T00:45:10.000Z&#34;,
-  &#34;First Name&#34;: &#34;AD&#34;,
-  &#34;Last Name&#34;: &#34;Admin&#34;
+&#34;Date of Activation&#34;: &#34;2020-05-15T00:45:10.000Z&#34;,
+&#34;First Name&#34;: &#34;AD&#34;,
+&#34;Last Name&#34;: &#34;Admin&#34;
 }
-</code></pre><ol start=7><li><p><code>jq</code> will save time required to view response for each user and search for the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em>.</p></li><li><p>We can also use HTTPie to create users,groups or applications in Okta. I will cover them in another post.</p></li></ol><hr><h2 id=access-multiple-okta-tenants-using-sessions-in-httpie>Access multiple Okta tenants using sessions in HTTPie</h2><ul><li><p>HTTPie also supports persistent sessions via the <code>--session=SESSION_NAME_or_PATH_TO_SESSION</code> option.</p></li><li><p>If we have two different Okta tenants like <code>dev-12345.okta.com</code> and <code>dev-54321.okta.com</code>, we can use the sessions option to access data from both the environments with reduced effort.</p></li><li><p>Create a directory and provide the name of the tenant. Example: dev-12345.okta.com.</p></li><li><p>Inside the directory create a file called <code>config.json</code> and provide the Authorization header and API key as shown below.</p><pre tabindex=0><code>{
+</code></pre></li><li><p><code>jq</code> will save time required to view response for each user and search for the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em>.</p></li><li><p>We can also use HTTPie to create users,groups or applications in Okta. I will cover them in another post.</p></li></ol><hr><h2 id=access-multiple-okta-tenants-using-sessions-in-httpie>Access multiple Okta tenants using sessions in HTTPie</h2><ul><li><p>HTTPie also supports persistent sessions via the <code>--session=SESSION_NAME_or_PATH_TO_SESSION</code> option.</p></li><li><p>If we have two different Okta tenants like <code>dev-12345.okta.com</code> and <code>dev-54321.okta.com</code>, we can use the sessions option to access data from both the environments with reduced effort.</p></li><li><p>Create a directory and provide the name of the tenant. Example: dev-12345.okta.com.</p></li><li><p>Inside the directory create a file called <code>config.json</code> and provide the Authorization header and API key as shown below.</p><pre tabindex=0><code>{
 
 &#34;headers&#34;: [
         {
