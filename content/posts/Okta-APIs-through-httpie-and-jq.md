@@ -87,24 +87,24 @@ Below shown is one user record that is returned when a HTTP GET request is made 
 
 
 
-``` 
-{
-  "args": {
-    "message": "hello world"
-  },
-  "headers": {
-    "Accept": "*/*",
-    "Accept-Encoding": "gzip, deflate",
-    "Host": "httpbin.org",
-    "User-Agent": "HTTPie/3.2.1",
-    "X-Amzn-Trace-Id": "Root=1-64eb6355-19c0a1b82a9fda080833fc7f"
-  },
-  "origin": "123.123.123.98",
-  "url": "https://httpbin.org/get?message=hello world"
-}
+    ``` 
+    {
+    "args": {
+        "message": "hello world"
+    },
+    "headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Host": "httpbin.org",
+        "User-Agent": "HTTPie/3.2.1",
+        "X-Amzn-Trace-Id": "Root=1-64eb6355-19c0a1b82a9fda080833fc7f"
+    },
+    "origin": "123.123.123.98",
+    "url": "https://httpbin.org/get?message=hello world"
+    }
 
 
-```
+    ```
 
 ----
 
@@ -124,15 +124,15 @@ Below shown is one user record that is returned when a HTTP GET request is made 
 
     - Create a file with name `Headers.txt` which contains the value for `Authorization` header
 
-    ```
-    cat headers.txt 
-    SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua
+        ```
+        cat headers.txt 
+        SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua
 
-    ```
+        ```
 
     - Provide reference to the file `headers.txt` in the API request  through `http` command.
 
-    `http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt`
+        `http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt`
 
 
 ----
@@ -162,30 +162,30 @@ Below shown is one user record that is returned when a HTTP GET request is made 
 6. The output of the jq command will be just three values for all the users. Please note that the number of records in the response depends on the limit set by Okta or specified in the command. My developer tenant has only 4 users, the output contains values for all the 4 users.
 
 
-```
-{
-  "Date of Activation": "2022-03-08T10:59:59.000Z",
-  "First Name": "Test",
-  "Last Name": "User002"
-}
-{
-  "Date of Activation": "2022-06-23T09:47:17.000Z",
-  "First Name": "Ramesh",
-  "Last Name": "RV"
-}
-{
-  "Date of Activation": "2022-06-23T09:56:30.000Z",
-  "First Name": "Okta Super",
-  "Last Name": "Admin"
-}
-{
-  "Date of Activation": "2020-05-15T00:45:10.000Z",
-  "First Name": "AD",
-  "Last Name": "Admin"
-}
+    ```
+    {
+    "Date of Activation": "2022-03-08T10:59:59.000Z",
+    "First Name": "Test",
+    "Last Name": "User002"
+    }
+    {
+    "Date of Activation": "2022-06-23T09:47:17.000Z",
+    "First Name": "Ramesh",
+    "Last Name": "RV"
+    }
+    {
+    "Date of Activation": "2022-06-23T09:56:30.000Z",
+    "First Name": "Okta Super",
+    "Last Name": "Admin"
+    }
+    {
+    "Date of Activation": "2020-05-15T00:45:10.000Z",
+    "First Name": "AD",
+    "Last Name": "Admin"
+    }
 
 
-```
+    ```
 
 7. `jq` will save time required to view response for each user and search for the values of _First Name_,_Last Name_ and _Date of Activation_.
 
