@@ -1,0 +1,102 @@
+<!doctype html><html lang=en-us><title>Access Okta APIs through httpie and jq | Ramesh > Blog</title><meta charset=utf-8><meta name=generator content="Hugo 0.118.2"><meta name=description content="Ramesh > Blog"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://rvramesh.me/css/minimal.css><link rel=canonical href=https://rvramesh.me/posts/okta-apis-through-httpie-and-jq/><link rel=alternate type=application/rss+xml href title="Ramesh > Blog"><header><a href=https://rvramesh.me/ class=title>Ramesh > Blog</a><nav><a href=../../about/>About</a>
+<a href=../../>Home</a>
+<a href=../../tags/>Tags</a>
+<a href=https://github.com/ramesh-rv>GitHub</a>
+<a href=https://www.linkedin.com/in/ramesh-rv-b2b57a8/>LinkedIn</a></nav></header><article><header><h1>Access Okta APIs through httpie and jq</h1><time datetime=2022-10-11T16:26:25+05:30>October 11, 2022</time>
+Tags: okta, api</header><p><strong>Table of Contents</strong></p><ol><li><a href=#pre-requisite>Pre-requisite</a></li><li><a href=#access-okta-apis-through-httpie>Access Okta APIs through HTTPie</a></li><li><a href=#using-jq-to-process-json-response>Using jq to process JSON response</a></li><li><a href=#access-multiple-okta-tenants-using-sessions-in-httpie>Access multiple Okta tenants using sessions in HTTPie</a></li></ol><hr><p>Most of us use <a href=https://www.postman.com/product/what-is-postman/>Postman</a> as the tool to access APIs.</p><p>As someone who likes cli(command line interface), when I was exploring HTTP clients I found <strong>HTTPie</strong>
+(<em>pronounced as <strong>aitch-tee-tee-pie</strong></em>) and <strong>Jq</strong>. Jq is a JSON processor that allows user to retrieve certain records or name-value pairs from it.</p><p>I found it difficult to view specific attributes for a user or group and compare it with another user while using the Postman.</p><p>Below shown is one user record that is returned when a HTTP GET request is made to <code>/users</code> endpoint using API. If I need the values for <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em>, I have to search for the values in the response.</p><pre tabindex=0><code>    {
+        &#34;id&#34;: &#34;00uboac18l2NDtseS4x7&#34;,
+        &#34;status&#34;: &#34;PROVISIONED&#34;,
+        &#34;created&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+        &#34;activated&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+        &#34;statusChanged&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+        &#34;lastLogin&#34;: null,
+        &#34;lastUpdated&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+        &#34;passwordChanged&#34;: null,
+        &#34;type&#34;: {
+            &#34;id&#34;: &#34;otyc373d9y5oyWY174x6&#34;
+        },
+        &#34;profile&#34;: {
+            &#34;firstName&#34;: &#34;Test&#34;,
+            &#34;lastName&#34;: &#34;User002&#34;,
+            &#34;mobilePhone&#34;: null,
+            &#34;secondEmail&#34;: null,
+            &#34;login&#34;: &#34;testuser002@corp.com&#34;,
+            &#34;email&#34;: &#34;testuser002@corp.com&#34;
+        },
+        &#34;credentials&#34;: {
+            &#34;emails&#34;: [
+                {
+                    &#34;value&#34;: &#34;testuser002@corp.com&#34;,
+                    &#34;status&#34;: &#34;VERIFIED&#34;,
+                    &#34;type&#34;: &#34;PRIMARY&#34;
+                }
+            ],
+            &#34;provider&#34;: {
+                &#34;type&#34;: &#34;OKTA&#34;,
+                &#34;name&#34;: &#34;OKTA&#34;
+            }
+        },
+        &#34;_links&#34;: {
+            &#34;self&#34;: {
+                &#34;href&#34;: &#34;https://dev-12345.okta.com/api/v1/users/00uboac18l2NDtseS4x7&#34;
+            }
+        }
+    },
+</code></pre><hr><h2 id=pre-requisite>Pre-requisite</h2><ol><li><p>API token created on your Okta tenant. You can follow the <a href=https://developer.okta.com/docs/guides/create-an-api-token/main/>Okta documentation to create an API token</a>. For this blog post I created an API token on my developer tenant.</p></li><li><p>Install httpie by following the instructions in the <a href=https://httpie.io/docs/cli/installation>official documentation</a>. Httpie can be installed on Windows,Linux and MacOS.</p></li><li><p>Install jq by following the instructions in the <a href=https://jqlang.github.io/jq/download/>documentation</a>. Jq can be installed on Windows,Linux and MacOS.</p></li><li><p>To verify if both <strong>httpie</strong> and <strong>jq</strong> are installed , issue the below command. A response with &ldquo;hello world&rdquo; in JSON format should be received as shown</p><p><code>http https://httpbin.org/get?message="hello world" | jq .</code></p></li></ol><pre tabindex=0><code>{
+  &#34;args&#34;: {
+    &#34;message&#34;: &#34;hello world&#34;
+  },
+  &#34;headers&#34;: {
+    &#34;Accept&#34;: &#34;*/*&#34;,
+    &#34;Accept-Encoding&#34;: &#34;gzip, deflate&#34;,
+    &#34;Host&#34;: &#34;httpbin.org&#34;,
+    &#34;User-Agent&#34;: &#34;HTTPie/3.2.1&#34;,
+    &#34;X-Amzn-Trace-Id&#34;: &#34;Root=1-64eb6355-19c0a1b82a9fda080833fc7f&#34;
+  },
+  &#34;origin&#34;: &#34;123.123.123.98&#34;,
+  &#34;url&#34;: &#34;https://httpbin.org/get?message=hello world&#34;
+}
+</code></pre><hr><h2 id=access-okta-apis-through-httpie>Access Okta APIs through HTTPie</h2><ol><li><p>The Okta API uses the custom HTTP authentication scheme <code>SSWS</code> for API authentication. An API request must have valid API token prefixed with <code>SSWS</code> in the HTTP <code>Authorization</code> header.</p><p><strong>Authorization: SSWS {API token here}</strong></p><p><code>Authorization: SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua</code></p></li><li><p>To get the list of users, we can access <code>/users</code> API endpoint through httpie as shown here.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:'SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua'</code></p></li><li><p>Headers can also be read from a file using the <code>:@</code> operator while using httpie. We can get the list of users by</p><ul><li>Create a file with name <code>Headers.txt</code> which contains the value for <code>Authorization</code> header</li></ul><pre tabindex=0><code>cat headers.txt 
+SSWS 00ABjCD4MeF-BDXM...ABmjXF-vbGua
+</code></pre><ul><li>Provide reference to the file <code>headers.txt</code> in the API request through <code>http</code> command.</li></ul><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt</code></p></li></ol><hr><h2 id=using-jq-to-process-json-response>Using jq to process JSON response</h2><ol><li><p>The best practice using <code>jq</code> with <code>http</code> is to pass the output of the API response to jq.</p><p><code>http https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq .</code></p></li><li><p>If the response contains an array, the values can be iterated. The jq documentation on <a href=https://devdocs.io/jq/>devdocs.io</a> provides good examples.</p></li><li><p>When I required the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em> , I first verified the JSON response of the user object.</p></li><li><p>Below is a visual representation of the response from Okta for a user shown earlier in the form of JSON.</p><p><img src=../../images/2022/10/user-object-json-response.png alt=user-object-json-diagram></p></li><li><p>So from the JSON response, jq will have to filter <code>activated</code>, <code>firstName</code> and <code>lastName</code> under <code>profile</code></p></li><li><p>The command will look like</p><p><code>http -b GET https://dev-12345.okta.com/api/v1/users Authorization:@headers.txt | jq '.[] | { "Date of Activation": .activated , "First Name": .profile.firstName , "Last Name": .profile.lastName }'</code></p></li><li><p>The output of the jq command will be just three values for all the users. Please note that the number of records in the response depends on the limit set by Okta or specified in the command. My developer tenant has only 4 users, the output contains values for all the 4 users.</p></li></ol><pre tabindex=0><code>{
+  &#34;Date of Activation&#34;: &#34;2022-03-08T10:59:59.000Z&#34;,
+  &#34;First Name&#34;: &#34;Test&#34;,
+  &#34;Last Name&#34;: &#34;User002&#34;
+}
+{
+  &#34;Date of Activation&#34;: &#34;2022-06-23T09:47:17.000Z&#34;,
+  &#34;First Name&#34;: &#34;Ramesh&#34;,
+  &#34;Last Name&#34;: &#34;RV&#34;
+}
+{
+  &#34;Date of Activation&#34;: &#34;2022-06-23T09:56:30.000Z&#34;,
+  &#34;First Name&#34;: &#34;Okta Super&#34;,
+  &#34;Last Name&#34;: &#34;Admin&#34;
+}
+{
+  &#34;Date of Activation&#34;: &#34;2020-05-15T00:45:10.000Z&#34;,
+  &#34;First Name&#34;: &#34;AD&#34;,
+  &#34;Last Name&#34;: &#34;Admin&#34;
+}
+</code></pre><ol start=7><li><p><code>jq</code> will save time required to view response for each user and search for the values of <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em>.</p></li><li><p>We can also use HTTPie to create users,groups or applications in Okta. I will cover them in another post.</p></li></ol><hr><h2 id=access-multiple-okta-tenants-using-sessions-in-httpie>Access multiple Okta tenants using sessions in HTTPie</h2><ul><li><p>HTTPie also supports persistent sessions via the <code>--session=SESSION_NAME_or_PATH_TO_SESSION</code> option.</p></li><li><p>If we have two different Okta tenants like <code>dev-12345.okta.com</code> and <code>dev-54321.okta.com</code>, we can use the sessions option to access data from both the environments with reduced effort.</p></li><li><p>Create a directory and provide the name of the tenant. Example: dev-12345.okta.com.</p></li><li><p>Inside the directory create a file called <code>config.json</code> and provide the Authorization header and API key as shown below.</p><pre tabindex=0><code>{
+
+&#34;headers&#34;: [
+        {
+            &#34;name&#34;: &#34;Authorization&#34;,
+            &#34;value&#34;: &#34;SSWS enter the API key here&#34;
+        }
+    ]
+}
+</code></pre></li><li><p>Create the directory and repeat the process for the other tenant dev-54321.okta.com. The API key will be unique for each tenant.</p></li><li><p>The directory structure can be similar to the output shown below</p><pre tabindex=0><code>    /home/ramesh/.config/httpie/sessions/
+├── dev-12345.okta.com
+│   └── config.json
+└── dev-54321.okta.com
+    └── config.json
+
+3 directories, 2 files
+</code></pre></li><li><p>Configure two environment variables <code>OKTA_HOST</code> and <code>SESSION_HOME</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>export OKTA_HOST<span style=color:#f92672>=</span>dev-12345.okta.com
+</span></span><span style=display:flex><span>export SESSION_HOME<span style=color:#f92672>=</span>~/.config/httpie/sessions/$OKTA_HOST
+</span></span></code></pre></div></li><li><p>To retrieve the values <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em> from <code>dev-12345.okta.com</code> we can execute the <code>http</code> command as shown below</p><pre tabindex=0><code>http -b GET https://$OKTA_HOST/api/v1/users --session-read-only=$SESSION_HOME/config.json | jq &#39;.[] | { &#34;Date of Activation&#34;: .activated , &#34;First Name&#34;: .profile.firstName , &#34;Last Name&#34;: .profile.lastName }&#39;
+</code></pre></li><li><p>To retrieve the values for <em>First Name</em>,<em>Last Name</em> and <em>Date of Activation</em> from <code>dev-54321.okta.com</code> , we can modify only the <code>OKTA_HOST</code> environment variable and execute the above shown <code>http</code> command</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>export OKTA_HOST<span style=color:#f92672>=</span>dev-54321.okta.com
+</span></span></code></pre></div></li><li><p>This can be helpful if we have to compare the values from different Okta tenants.</p></li></ul><hr></article></html>
