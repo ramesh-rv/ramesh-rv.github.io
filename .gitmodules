@@ -1,3 +1,6 @@
 [submodule "themes/contrast-hugo-mod"]
 	path = themes/contrast-hugo-mod
 	url = https://github.com/ramesh-rv/contrast-hugo-mod.git
+[submodule "ink-free"]
+	path = ink-free
+	url = https://github.com/chollinger93/ink-free
